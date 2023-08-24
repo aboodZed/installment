@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Customer;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+class CustomerController extends Controller
+{
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $customers = Customer::paginate(30);
+        return view('customer.index', compact('customers'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $id = Customer::max('user_id') + 1;
+        return view('customer.create', compact('id'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|unique:users|string|max:255',
+                'phone' => 'required|integer',
+                'id_number' => 'required|integer',
+                'address' => 'required|string',
+                'currency' => 'required|string',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'id_number' => $request->id_number,
+            'password' => Hash::make('12345678'),
+        ]);
+
+        Customer::create([
+            'user_id' => $user->id,
+            'address' => $request->address,
+            'currency_code' => $request->currency,
+        ]);
+
+        $user->assignRole('customer');
+
+        return redirect()->back()->with('success', 'Process complete successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Customer $customer)
+    {
+        return view('customer.show', compact('customer'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Customer $customer)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Customer $customer)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Customer $customer)
+    {
+        //
+    }
+}

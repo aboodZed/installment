@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
+use App\Models\Restriction;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $res = Restriction::paginate(30);
+        return view('home', compact('res'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }
