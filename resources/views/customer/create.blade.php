@@ -4,13 +4,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                {{-- <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
-                    <div class="card-body"> --}}
-                
-                <h2 class="offset-md-2 text-center mb-5 mt-3">{{ __('Register') }}</h2>
 
-                <form method="POST" action="{{ route('register') }}">
+                <h2 class="offset-md-2 text-center mb-5 mt-3">{{ __('Create Customer') }}</h2>
+
+                <form method="POST" action="{{ route('customer.store') }}">
                     @csrf
 
                     <div class="row mb-3">
@@ -75,14 +72,13 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
 
                         <div class="col-md-6">
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="new-password">
+                            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror"
+                                name="address" value="{{ old('address') }}" required autocomplete="address">
 
-                            @error('password')
+                            @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -91,26 +87,36 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="password-confirm"
-                            class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                        <label for="currency" class="col-md-4 col-form-label text-md-end">{{ __('Currency') }}</label>
 
                         <div class="col-md-6">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                                required autocomplete="new-password">
+                            <select id="currency" class="form-control @error('currency') is-invalid @enderror"
+                                name="currency" required autocomplete="currency">
+                                @php
+                                    $currency = App\Models\Currency::all();
+                                @endphp
+                                @foreach ($currency as $item)
+                                    <option value="{{ $item->code }}">{{ $item->symbol }} - {{ $item->code }}</option>
+                                @endforeach
+                            </select>
+
+                            @error('currency')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4 mt-2">
                             <button type="submit" class="btn btn-primary w-100 btn-block">
-                                {{ __('Register') }}
+                                {{ __('create') }}
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
-
-            <div class="col-md-6"></div>
         </div>
     </div>
 @endsection
