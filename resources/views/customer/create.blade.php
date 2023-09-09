@@ -5,13 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
 
-                <h2 class="offset-md-2 text-center mb-5 mt-3">{{ __('Create Customer') }}</h2>
+                <h2 class="offset-md-2 text-center mb-3 mt-3">{{ __('text.createcustomer') }}</h2>
 
                 <form method="POST" action="{{ route('customer.store') }}">
                     @csrf
 
                     <div class="row mb-3">
-                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('text.name') }}</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('text.email') }}</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                        <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('text.phone') }}</label>
 
                         <div class="col-md-6">
                             <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror"
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="id_number" class="col-md-4 col-form-label text-md-end">{{ __('ID Number') }}</label>
+                        <label for="id_number" class="col-md-4 col-form-label text-md-end">{{ __('text.idnumber') }}</label>
 
                         <div class="col-md-6">
                             <input id="id_number" type="number"
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                        <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('text.address') }}</label>
 
                         <div class="col-md-6">
                             <input id="address" type="text" class="form-control @error('address') is-invalid @enderror"
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="currency" class="col-md-4 col-form-label text-md-end">{{ __('Currency') }}</label>
+                        <label for="currency" class="col-md-4 col-form-label text-md-end">{{ __('text.currency') }}</label>
 
                         <div class="col-md-6">
                             <select id="currency" class="form-control @error('currency') is-invalid @enderror"
@@ -111,7 +111,7 @@
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4 mt-2">
                             <button type="submit" class="btn btn-primary w-100 btn-block">
-                                {{ __('create') }}
+                                {{ __('text.create') }}
                             </button>
                         </div>
                     </div>

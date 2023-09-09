@@ -2,19 +2,43 @@
 
 @section('content')
     <div class="container">
-
-        <h2 class="text-center mb-3">{{ __('Customer') }}</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{{ route('customer.create') }}">
+                    <button type="button" class="btn btn-primary">
+                        {{ __('text.createcustomer') }}
+                    </button></a>
+            </div>
+            <div class="col-4">
+                <h2 class="text-center mb-3">{{ __('text.customers') }}</h2>
+            </div>
+            <div class="col-4">
+                <form action="{{ route('customer.index') }}" method="get">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" name="name" id="name"
+                                placeholder="{{ __('text.name') }}, {{ __('text.phone') }}, {{ __('text.idnumber') }}" required>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn" type="submit">
+                                <img src="{{ asset('icon/search.svg') }}" alt="" width="20px" height="20px">
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="bg-primary text-white">#</th>
-                    <th class="bg-primary text-white">Name</th>
-                    <th class="bg-primary text-white">E-mail</th>
-                    <th class="bg-primary text-white">Phone</th>
-                    <th class="bg-primary text-white">ID</th>
-                    <th class="bg-primary text-white">Address</th>
-                    <th class="bg-primary text-white">Account</th>
+                    <th class="bg-primary text-white">{{ __('text.name') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.email') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.phone') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.idnumber') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.address') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.account') }}</th>
                     <th class="bg-primary text-white"></th>
                 </tr>
             </thead>
@@ -36,14 +60,14 @@
                             foreach ($item->restrictions as $value) {
                                 if (!$value->paid) {
                                     if ($value->is_credit) {
-                                        $t += $value->price->value;
-                                    } else {
                                         $t -= $value->price->value;
+                                    } else {
+                                        $t += $value->price->value;
                                     }
                                 }
                             }
                         @endphp
-                        <td>{{ $t }}</td>
+                        <td>{{ $t }} {{ $item->currency->symbol }}</td>
                         <td><a href="{{ route('customer.show', $item->user_id) }}">
                                 <img src="{{ asset('icon/news.svg') }}" alt="" width="20px" height="20px">
                             </a>

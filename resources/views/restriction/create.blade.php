@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .footer-container {
+            max-width: 100%;
+            box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+            padding: 12px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: auto;
+            text-align: center;
+            background-color: white
+        }
+    </style>
     <div class="container">
         <form action="{{ route('restriction.store') }}" method="post">
             @csrf
@@ -10,50 +25,53 @@
                 @endphp
                 <thead>
                     <tr>
-                        <td></td>
-                        <th class="bg-primary text-white text-center">ID</th>
-                        <td><input class="form-control" type="number" name="customer" id="customer"
-                                value="{{ $id }}" readonly></td>
-                        <th class="bg-primary text-white text-center">Name</th>
+                        <th class="bg-primary text-white text-center">{{ __('text.idnumber') }}</th>
+                        <td><input class="form-control" type="number" name="customer" id="customer" value="{{ $id }}"
+                                readonly></td>
+                        <th class="bg-primary text-white text-center">{{ __('text.name') }}</th>
                         <td><input class="form-control" type="text" value="{{ $customer->user->name }}" readonly></td>
-                        <th class="bg-primary text-white text-center">Date</th>
+                        <th class="bg-primary text-white text-center">{{ __('text.date') }}</th>
                         <td><input class="form-control" type="date" value="{{ now()->format('Y-m-d') }}" readonly></td>
-                        <th class="bg-primary text-white text-center">Time</th>
+                        <th class="bg-primary text-white text-center">{{ __('text.time') }}</th>
                         <td><input class="form-control" type="time" value="{{ now()->format('H:i') }}"></td>
                     </tr>
                     <tr>
-                        <td><button type="submit" class="btn btn-primary">Save instellment</button></td>
-                        <th class="bg-primary text-white text-center">Total Amount {{ $customer->currency->symbol }}</th>
+                        <th class="bg-primary text-white text-center">{{ __('text.amount') }}</th>
                         <td><input class="form-control" type="number" step="0.01" name="total" id="total"
-                                placeholder="total amount"></td>
-                        <th class="bg-primary text-white text-center">Period</th>
+                                placeholder="{{ $customer->currency->symbol }}" autofocus></td>
+                        <th class="bg-primary text-white text-center">{{ __('text.period') }}</th>
                         <td><select class="form-control" name="period" id="period">
-                                <option value="days">Daily</option>
-                                <option value="weeks">Weekly</option>
-                                <option value="months">Monthly</option>
-                                <option value="years">Yearly</option>
+                                <option value="days">{{ __('text.daily') }}</option>
+                                <option value="weeks">{{ __('text.weekly') }}</option>
+                                <option value="months">{{ __('text.monthly') }}</option>
+                                <option value="years">{{ __('text.yearly') }}</option>
                             </select></td>
-                        <th class="bg-primary text-white text-center">Start In</th>
+                        <th class="bg-primary text-white text-center">{{ __('text.start') }}</th>
                         <td><input class="form-control" type="date" value="{{ now()->format('Y-m-d') }}" name="start"
                                 id="start">
                         </td>
-                        <th class="bg-primary text-white text-center">Number</th>
+                        <th class="bg-primary text-white text-center">{{ __('text.number') }}</th>
                         <td><input class="form-control" type="number" value="1" name="num" id="num"
                                 placeholder="number of period"></td>
                     </tr>
             </table>
-            <table class="table table-hover">
+            <table class="table table-hover mb-5">
                 <thead>
                     <tr class="text-center">
                         <th class="bg-primary text-white">#</th>
-                        <th class="bg-primary text-white">Description</th>
-                        <th class="bg-primary text-white">Amount</th>
-                        <th class="bg-primary text-white">Due Date</th>
+                        <th class="bg-primary text-white">{{ __('text.description') }}</th>
+                        <th class="bg-primary text-white">{{ __('text.amount') }}</th>
+                        <th class="bg-primary text-white">{{ __('text.duedate') }}</th>
                     </tr>
                 </thead>
                 <tbody id="body">
                 </tbody>
             </table>
+            <footer>
+                <div class="footer-container">
+                    <button type="submit" class="btn btn-primary">{{ __('text.save') }}</button>
+                </div>
+            </footer>
         </form>
     </div>
 @endsection
