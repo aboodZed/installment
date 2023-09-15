@@ -16,7 +16,7 @@ class Language
      */
     public function handle(Request $request, Closure $next): Response
     {
-        App::setlocale('en');
+        App::setlocale('ar');
         return $next($request);
     }
 }

@@ -4,7 +4,6 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-
                 <h2 class="offset-md-2 text-center mb-3 mt-5">{{ __('text.restriction') }}</h2>
 
                 <form action="{{ route('restriction.edit', $res->price_id) }}" method="post">
@@ -38,7 +37,8 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="desc" class="col-md-4 col-form-label text-md-end">{{ __('text.description') }}</label>
+                        <label for="desc"
+                            class="col-md-4 col-form-label text-md-end">{{ __('text.description') }}</label>
 
                         <div class="col-md-6">
                             <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror"
@@ -49,12 +49,40 @@
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4 mt-2">
                             <button type="submit" class="btn btn-primary w-100 btn-block">
-                                {{ __('Save') }}
+                                {{ __('text.save') }}
                             </button>
                         </div>
                     </div>
                 </form>
+                <div class="row mb-0">
+                    <div class="col-md-6 offset-md-4 mt-5">
+                        <form action="{{ route('restriction.delete', $res->price_id) }}" method="post">
+                            @csrf
+                            <input type="checkbox" class="form-check-input" name="allow" id="allow">
+                            <label for="allow" class="mb-2">
+                                {{ __('text.allowdelete') }}
+                            </label>
+                            <button id="delete" type="submit" disabled class="btn btn-danger w-100 btn-block">
+                                {{ __('text.delete') }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $('#allow').change(function(e) {
+                if (this.checked) {
+                    $('#delete').attr("disabled", false);
+                } else {
+                    $('#delete').attr("disabled", true);
+                }
+            })
+        });
+    </script>
 @endsection

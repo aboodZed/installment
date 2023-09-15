@@ -139,8 +139,9 @@ class RestrictionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Restriction $instellment)
+    public function destroy($id)
     {
-        //
+        Restriction::find($id)->delete();
+        return redirect()->route('restriction.index');
     }
 }

@@ -42,5 +42,6 @@ Route::middleware(Language::class)->group(function () {
             Route::get('/create/{id}', 'create')->name('create');
             Route::post('store', 'store')->name('store');
             Route::put('{id}/edit', 'update')->name('edit');
+            Route::post('{id}/delete', 'destroy')->name('delete');
         });
 });

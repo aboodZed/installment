@@ -37,5 +37,6 @@ return [
     'yearly' => 'Yearly',
     'start' => 'Start',
     'number' => 'Number',
-
+    'allowdelete' => 'Allow Delete this!!',
+    'delete' => 'Delete',
 ];
