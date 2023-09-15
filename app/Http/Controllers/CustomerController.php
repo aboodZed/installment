@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,9 +19,23 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::paginate(30);
+        $validator = Validator::make(
+            $request->all(),
+            ['name' => 'required|string|max:255']
+        );
+
+        if ($validator->fails()) {
+            $customers = Customer::paginate(30);
+        } else {
+            $customers = Customer::whereHas('user', function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->name . '%')
+                    ->orWhere('phone', 'like', '%' . $request->name . '%')
+                    ->orWhere('id_number', 'like', '%' . $request->name . '%');
+            })->paginate(30);
+        }
+
         return view('customer.index', compact('customers'));
     }
 

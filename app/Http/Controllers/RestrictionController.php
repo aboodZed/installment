@@ -19,10 +19,22 @@ class RestrictionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $res = Restriction::paginate(30);
-        return view('restriction.index', compact('res'));
+        $validator = Validator::make(
+            $request->all(),
+            ['date' => 'required|date',]
+        );
+
+        if ($validator->fails()) {
+            $date = now()->format('Y-m-d');
+            $res = Restriction::orderBy('pay_date', 'desc')->paginate(30);
+        } else {
+            $date = $request->date;
+            $res = Restriction::whereDate('pay_date', $request->date)->paginate(30);
+        }
+
+        return view('restriction.index', compact(['res', 'date']));
     }
 
     /**
@@ -64,7 +76,7 @@ class RestrictionController extends Controller
                 'price_id' => $p->id,
                 'customer_id' => $c->user_id,
                 'desc' => $value['desc'],
-                'is_credit' => true,
+                'is_credit' => false,
                 'paid' => false,
                 'pay_date' => $value['date'],
             ]);
@@ -127,24 +139,9 @@ class RestrictionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Restriction $instellment)
+    public function destroy($id)
     {
-        //
-    }
-
-    public function search(Request $request)
-    {
-        $validator = Validator::make(
-            $request->all(),
-            ['date' => 'required|date',]
-        );
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());
-        }
-
-        $res = Restriction::whereDate('pay_date', $request->date)->get();
-        // return $res;
-        return view('home', compact('res'));
+        Restriction::find($id)->delete();
+        return redirect()->route('restriction.index');
     }
 }

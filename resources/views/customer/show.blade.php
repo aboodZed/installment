@@ -6,17 +6,17 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th class="bg-primary text-white text-center">Name</th>
+                    <th class="bg-primary text-white text-center">{{ __('text.name') }}</th>
                     <td>{{ $customer->user->name }}</td>
-                    <th class="bg-primary text-white text-center">Phone</th>
+                    <th class="bg-primary text-white text-center">{{ __('text.phone') }}</th>
                     <td>{{ $customer->user->phone }}</td>
-                    <th class="bg-primary text-white text-center">ID</th>
+                    <th class="bg-primary text-white text-center">{{ __('text.idnumber') }}</th>
                     <td>{{ $customer->user->id_number }}</td>
                 </tr>
                 <tr>
-                    <th class="bg-primary text-white text-center">E-mail</th>
+                    <th class="bg-primary text-white text-center">{{ __('text.email') }}</th>
                     <td>{{ $customer->user->email }}</td>
-                    <th class="bg-primary text-white text-center">Address</th>
+                    <th class="bg-primary text-white text-center">{{ __('text.address') }}</th>
                     <td colspan="3">{{ $customer->address }}</td>
                 </tr>
         </table>
@@ -25,10 +25,10 @@
             <thead>
                 <tr>
                     <th class="bg-primary text-white">#</th>
-                    <th class="bg-primary text-white">Description</th>
-                    <th class="bg-primary text-white">Amount</th>
-                    <th class="bg-primary text-white">is Paid</th>
-                    <th class="bg-primary text-white">Due Date</th>
+                    <th class="bg-primary text-white">{{ __('text.description') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.amount') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.paid') }}</th>
+                    <th class="bg-primary text-white">{{ __('text.duedate') }}</th>
                     <th class="bg-primary text-white"></th>
                 </tr>
             </thead>
@@ -40,7 +40,7 @@
                     <tr>
                         <td>{{ $i }}</td>
                         <td>{{ $item->desc }}</td>
-                        <td>{{ $item->is_credit ? $item->price->value : -1 * $item->price->value }}
+                        <td>{{ $item->is_credit ?  -1 * $item->price->value : $item->price->value }}
                             {{ $item->price->currency->symbol }}</td>
                         <td><input class="form-check-input" type="checkbox" name="paid" id="paid{{ $i }}"
                                 {{ $item->paid ? 'checked' : '' }} disabled></td>

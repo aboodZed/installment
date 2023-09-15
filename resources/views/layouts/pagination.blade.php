@@ -8,8 +8,8 @@
 <div class="row mt-5">
     @if ($products->lastPage() > 1)
         <div class="col-lg-2 text-center">
-            <h6>Showing {{ ($products->currentPage() - 1) * $products->count() }} to
-                {{ $products->currentPage() * $products->count() }} Of {{ $products->total() }}
+            <h6>{{ ($products->currentPage() - 1) * $products->count() }}-{{ $products->currentPage() * $products->count() }}
+                Of {{ $products->total() }}
             </h6>
         </div>
         <div class="col-lg-8">

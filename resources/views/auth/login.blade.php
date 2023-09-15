@@ -8,13 +8,13 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body"> --}}
-                <h2 class="offset-md-2 text-center mb-5 mt-3 font-weight-bold">{{ __('Login') }}</h2>
+                <h2 class="offset-md-2 text-center mb-5 mt-5 font-weight-bold">{{ __('text.login') }}</h2>
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="row mb-3">
-                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('text.email') }}</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="row mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('text.password') }}</label>
 
                         <div class="col-md-6">
                             <input id="password" type="password"
@@ -51,7 +51,7 @@
                                     {{ old('remember') ? 'checked' : '' }}>
 
                                 <label class="form-check-label" for="remember">
-                                    {{ __('Remember Me') }}
+                                    {{ __('text.rememberme') }}
                                 </label>
                             </div>
                         </div>
@@ -60,12 +60,12 @@
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4 mt-2">
                             <button type="submit" class="btn w-100 btn-primary">
-                                {{ __('Login') }}
+                                {{ __('text.login') }}
                             </button>
 
                             @if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                    {{ __('text.forgetpassword') }}
                                 </a>
                             @endif
                         </div>
@@ -74,7 +74,9 @@
                 {{-- </div>
             </div> --}}
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <img src="{{ asset('icon/back.jpg') }}" alt="" width="600px" height="450px">
+            </div>
         </div>
     </div>
 @endsection
