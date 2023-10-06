@@ -34,7 +34,10 @@ Route::middleware(Language::class)->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::resource('customer', CustomerController::class);
+    Route::get('customer/installment/{id}', [CustomerController::class, 'insta'])->name('insta');
+
     // Route::resource('restriction', RestrictionController::class);
+    
     Route::prefix('restriction')->name('restriction.')
         ->controller(RestrictionController::class)->group(function () {
             Route::get('', 'index')->name('index');

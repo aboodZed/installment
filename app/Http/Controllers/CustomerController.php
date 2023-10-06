@@ -57,7 +57,7 @@ class CustomerController extends Controller
             $request->all(),
             [
                 'name' => 'required|string|max:255',
-                'email' => 'required|unique:users|string|max:255',
+                'email' => 'nullable|unique:users|string|max:255',
                 'phone' => 'required|integer',
                 'id_number' => 'required|integer',
                 'address' => 'required|string',
@@ -82,8 +82,6 @@ class CustomerController extends Controller
             'address' => $request->address,
             'currency_code' => $request->currency,
         ]);
-
-        $user->assignRole('customer');
 
         return redirect()->back()->with('success', 'Process complete successfully');
     }

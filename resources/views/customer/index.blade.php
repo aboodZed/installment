@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row mb-2">
+            <div class="col-4">
                 <a href="{{ route('customer.create') }}">
                     <button type="button" class="btn btn-primary">
                         {{ __('text.createcustomer') }}
@@ -12,14 +12,15 @@
             <div class="col-4">
                 <h2 class="text-center mb-3">{{ __('text.customers') }}</h2>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
                 <form action="{{ route('customer.index') }}" method="get">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-10">
                             <input class="form-control" type="text" name="name" id="name"
-                                placeholder="{{ __('text.name') }}, {{ __('text.phone') }}, {{ __('text.idnumber') }}" required>
+                                placeholder="{{ __('text.name') }}, {{ __('text.phone') }}, {{ __('text.idnumber') }}"
+                                required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-2">
                             <button class="btn" type="submit">
                                 <img src="{{ asset('icon/search.svg') }}" alt="" width="20px" height="20px">
                             </button>

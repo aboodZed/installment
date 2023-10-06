@@ -36,7 +36,8 @@ return [
     'monthly' => 'Monthly',
     'yearly' => 'Yearly',
     'start' => 'Start',
-    'number' => 'Number',
+    'number_repeat' => 'Number Repeat',
     'allowdelete' => 'Allow Delete this!!',
     'delete' => 'Delete',
+    'repeat' => 'repeat',
 ];

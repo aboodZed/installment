@@ -54,6 +54,7 @@ class RestrictionController extends Controller
             $request->all(),
             [
                 'customer' => 'required|integer',
+                'res' => 'required|array',
                 'res.*.date' => 'required|date',
                 'res.*.amount' => 'required|numeric',
                 'res.*.desc' => 'nullable|string',

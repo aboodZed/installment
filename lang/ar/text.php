@@ -36,7 +36,8 @@ return [
     "monthly" => "شهري",
     "yearly" => "سنوي",
     "start" => "بداية",
-    "number" => "رقم",
+    "number_repeat" => "مرات التكرار",
     'allowdelete' => '!!السماح بحذفه',
     'delete' => 'حذف',
+    'repeat' => 'تكرار'
 ];
