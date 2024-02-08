@@ -24,7 +24,7 @@ class Customer extends Model
 
     public function restrictions()
     {
-        return $this->hasMany(Restriction::class, 'customer_id');
+        return $this->hasManyThrough(Restriction::class, Installment::class, 'customer_id');
     }
 
     public function currency()

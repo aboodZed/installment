@@ -27,7 +27,7 @@
             <div class="row text-end mb-2">
                 <div class="col-md-1">{{ __('text.amount') }}</div>
                 <div class="col-md-2"><input class="form-control" type="number" step="0.01" name="total"
-                        id="total" placeholder="{{ $customer->currency->symbol }}" autofocus></div>
+                        id="total" placeholder="{{ $customer->currency->symbol }}" required autofocus></div>
                 <div class="col-md-1">{{ __('text.repeat') }}</div>
                 <div class="col-md-1"><select class="form-control" name="period" id="period">
                         <option value="days">{{ __('text.daily') }}</option>
@@ -41,7 +41,7 @@
                         id="num" placeholder="number of period"></div>
                 <div class="col-md-1">{{ __('text.description') }}</div>
                 <div class="col-md-4"><input class="form-control" type="text" name="desc" id="desc"
-                        placeholder="{{ __('text.description') }}"></div>
+                        placeholder="{{ __('text.description') }}" required></div>
 
             </div>
             <table class="table table-hover" style="margin-bottom: 150px">
@@ -57,16 +57,21 @@
             </table>
             <footer>
                 <div class="footer-container row">
-                    <div class="col-md-2">
-                        <h6>{{ __('text.time') }} : {{ now()->format('H:i:s') }}</h6>
-                        <h6>{{ __('text.date') }} : {{ now()->format('Y-m-d') }}</h6>
+                    <div class="row col-md-10">
+                        <div class="col-md-8">
+                            <h6><b>{{ __('text.name') }} : <a href="{{ route('customer.show', $customer) }}">
+                                        {{ $customer->user->name }}
+                                    </a>,</b> {{ __('text.idnumber') }} :
+                                {{ $customer->user->id_number }},
+                                {{ __('text.phone') }} : {{ $customer->user->phone }}</h6>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>{{ __('text.date') }} : {{ now()->format('Y-m-d') }}, {{ __('text.time') }} :
+                                {{ now()->format('H:i:s') }}</h6>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <h5><b>{{ $customer->user->name }}</b></h5>
-                        <h6>{{ $customer->user->phone }}, {{ $customer->user->email }}</h6>
-                    </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary w-100">{{ __('text.save') }}</button>
+                        <button type="submit" class="btn btn-primary w-100 h-100">{{ __('text.save') }}</button>
                     </div>
                 </div>
             </footer>
@@ -115,6 +120,10 @@
             function create() {
                 var n = parseInt(num.val());
                 body.empty();
+                if (total.val() < 0) {
+                    total.val('');
+                    return
+                }
                 for (let index = 0; index < n; index++) {
                     addRow(index);
                     editRow();

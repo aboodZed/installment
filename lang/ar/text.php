@@ -39,5 +39,8 @@ return [
     "number_repeat" => "مرات التكرار",
     'allowdelete' => '!!السماح بحذفه',
     'delete' => 'حذف',
-    'repeat' => 'تكرار'
+    'repeat' => 'تكرار',
+    'total' => 'الإجمالي',
+    'rest' => 'الباقي',
+    'search' => 'بحث',
 ];

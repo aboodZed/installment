@@ -4,11 +4,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="offset-md-2 text-center mb-3 mt-5">{{ __('text.restriction') }}
-                    <a href="{{ route('customer.show', $res->customer_id) }}">
-                        <h5>{{ $res->user->user->name }}</h5>
+                <h3 class="offset-md-2 text-center mb-3 mt-2">{{ __('text.restriction') }}
+                    <a href="{{ route('customer.show', $res->installment->customer_id) }}">
+                         : {{ $res->installment->user->user->name }}
                     </a>
-                </h2>
+                </h3>
 
                 <form action="{{ route('restriction.edit', $res->price_id) }}" method="post">
                     @method('PUT')
@@ -36,8 +36,8 @@
                             class="col-md-4 col-form-label text-md-end">{{ __('text.description') }}</label>
 
                         <div class="col-md-6">
-                            <input id="desc" type="text" class="form-control @error('desc') is-invalid @enderror"
-                                name="desc" value="{{ $res->desc }}" autocomplete="desc" autofocus>
+                            <input type="text" class="form-control @error('desc') is-invalid @enderror"
+                                 value="{{ $res->installment->desc }}" disabled>
 
                         </div>
                     </div>

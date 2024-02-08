@@ -39,5 +39,8 @@ return [
     'number_repeat' => 'Number Repeat',
     'allowdelete' => 'Allow Delete this!!',
     'delete' => 'Delete',
-    'repeat' => 'repeat',
+    'repeat' => 'Repeat',
+    'total' => 'Total',
+    'rest' => 'Rest',
+    'search' => 'Search',
 ];

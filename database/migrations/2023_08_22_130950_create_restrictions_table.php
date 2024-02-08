@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('restrictions', function (Blueprint $table) {
             $table->integer('price_id')->unsigned()->primary();
-            $table->bigInteger('customer_id')->unsigned();
-            $table->text('desc')->nullable();
+            $table->integer('installment_id')->unsigned();
             $table->boolean('is_credit');
             $table->boolean('paid');
             $table->date('pay_date');
             $table->timestamps();
 
             $table->foreign('price_id')->references('id')->on('prices')->onDelete('cascade');
-            $table->foreign('customer_id')->references('user_id')->on('customers');
+            $table->foreign('installment_id')->references('id')->on('installments')->onDelete('cascade');
         });
     }
 

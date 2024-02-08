@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Price extends Model
 {
-    use HasFactory;
+    use HasFactory; 
 
     protected $fillable = [
         'currency_code',

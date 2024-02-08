@@ -45,8 +45,8 @@
                     <tr>
                         <td>{{ $i }}</td>
                         <td>
-                            <a href="{{ route('customer.show', $item->customer_id) }}">
-                                {{ $item->user->user->name }}
+                            <a href="{{ route('customer.show', $item->installment->customer_id) }}">
+                                {{ $item->installment->user->user->name }}
                             </a>
                         </td>
                         <td>{{ $item->pay_date->format('d/m/Y') }}</td>
@@ -54,7 +54,9 @@
                             {{ $item->price->currency->symbol }}</td>
                         <td><input class="form-check-input" type="checkbox" name="paid" id="paid{{ $i }}"
                                 {{ $item->paid ? 'checked' : '' }} disabled></td>
-                        <td>{{ $item->desc }}</td>
+                        <td><a
+                                href="{{ route('installment.show', $item->installment->id) }}">{{ $item->installment->desc }}</a>
+                        </td>
                         <td>
                             <a href="{{ route('restriction.show', $item->price_id) }}">
                                 <img src="{{ asset('icon/news.svg') }}" alt="" width="20px" height="20px">

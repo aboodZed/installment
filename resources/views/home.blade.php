@@ -36,7 +36,7 @@
                 @foreach ($res as $item)
                     <tr>
                         <td>{{ $i }}</td>
-                        <td>{{ $item->desc }}</td>
+                        <td>{{ $item->installment->desc }}</td>
                         <td>{{ $item->is_credit ?  -1 * $item->price->value : $item->price->value }}
                             {{ $item->price->currency->symbol }}</td>
                         <td><input class="form-check-input" type="checkbox" name="paid" id="paid{{ $i }}"

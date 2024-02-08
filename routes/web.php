@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\RestrictionController;
 use App\Http\Middleware\Language;
-use App\Models\Restriction;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,11 +32,16 @@ Route::middleware(Language::class)->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::resource('customer', CustomerController::class);
     Route::get('customer/installment/{id}', [CustomerController::class, 'insta'])->name('insta');
+    Route::get('customer/{id}/filter', [CustomerController::class, 'filter'])->name('filter');
+    Route::resource('customer', CustomerController::class);
 
     // Route::resource('restriction', RestrictionController::class);
-    
+    Route::prefix('installment')->name('installment.')
+        ->controller(InstallmentController::class)->group(function () {
+            Route::get('{id}', 'show')->name('show');
+        });
+
     Route::prefix('restriction')->name('restriction.')
         ->controller(RestrictionController::class)->group(function () {
             Route::get('', 'index')->name('index');

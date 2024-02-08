@@ -11,10 +11,11 @@ class Restriction extends Model
 
     protected $primaryKey = 'price_id';
 
+    public $incrementing = false;
+
     protected $fillable = [
         'price_id',
-        'customer_id',
-        'desc',
+        'installment_id',
         'is_credit',
         'paid',
         'pay_date',
@@ -28,11 +29,11 @@ class Restriction extends Model
 
     public function price()
     {
-        return $this->belongsTo(Price::class, 'price_id');
+        return $this->belongsTo(Price::class);
     }
 
-    public function user()
+    public function installment()
     {
-        return $this->belongsTo(Customer::class, 'customer_id');
+        return $this->belongsTo(Installment::class, 'installment_id');
     }
 }

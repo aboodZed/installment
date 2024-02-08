@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Restriction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -91,9 +92,27 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return view('customer.show', compact('customer'));
+        $res = $customer->restrictions()->paginate(30);
+        return view('customer.show', compact(['customer', 'res']));
     }
 
+
+    public function filter($id, Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            ['date' => 'required|date',]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
+
+        $date = $request->date;
+        $res = Restriction::whereDate('pay_date', $date)->paginate(30);
+        $customer = Customer::find($id);
+        return view('customer.show', compact(['customer', 'res']));
+    }
     /**
      * Show the form for editing the specified resource.
      */

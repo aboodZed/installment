@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\installment;
 use App\Models\Price;
 use App\Models\Restriction;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class RestrictionController extends Controller
 
         if ($validator->fails()) {
             $date = now()->format('Y-m-d');
-            $res = Restriction::orderBy('pay_date', 'desc')->paginate(30);
+            $res = Restriction::orderBy('pay_date')->paginate(30);
         } else {
             $date = $request->date;
             $res = Restriction::whereDate('pay_date', $request->date)->paginate(30);
@@ -57,7 +58,6 @@ class RestrictionController extends Controller
                 'res' => 'required|array',
                 'res.*.date' => 'required|date',
                 'res.*.amount' => 'required|numeric',
-                'res.*.desc' => 'nullable|string',
             ]
         );
 
@@ -67,6 +67,11 @@ class RestrictionController extends Controller
 
         $c = Customer::find($request->customer);
 
+        $i = Installment::create([
+            'customer_id' => $c->user_id,
+            'desc' => $request->desc,
+        ]);
+
         foreach ($request->res as $value) {
             $p = Price::create([
                 'currency_code' => $c->currency_code,
@@ -75,8 +80,7 @@ class RestrictionController extends Controller
 
             Restriction::create([
                 'price_id' => $p->id,
-                'customer_id' => $c->user_id,
-                'desc' => $value['desc'],
+                'installment_id' => $i->id,
                 'is_credit' => false,
                 'paid' => false,
                 'pay_date' => $value['date'],
@@ -131,7 +135,6 @@ class RestrictionController extends Controller
 
         $res->pay_date = $request->date;
         $res->paid = $request->paid != null;
-        $res->desc = $request->desc;
         $res->save();
 
         return redirect()->back()->with('success', 'process complete successfully');
