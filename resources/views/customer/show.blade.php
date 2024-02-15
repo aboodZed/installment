@@ -5,36 +5,86 @@
 
         <div class="row">
             <div class="col-md-4">
+                <form method="POST" action="{{ route('admin.edit', $customer->user->id) }}">
+                    @csrf
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="bg-primary text-white text-center" colspan="2">{{ __('text.customer') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>{{ __('text.name') }}</th>
+                                <td>
+                                    <input id="name" type="text" class="form-control" name="name"
+                                        value="{{ $customer->user->name }}" required autofocus>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('text.phone') }}</th>
+                                <td><input id="phone" type="number" class="form-control" name="phone"
+                                        value="{{ $customer->user->phone }}" required></td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('text.idnumber') }}</th>
+                                <td>
+                                    <input id="id_number" type="number" class="form-control" name="id_number"
+                                        value="{{ $customer->user->id_number }}" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('text.email') }}</th>
+                                <td>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                        value="{{ $customer->user->email }}" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('text.address') }}</th>
+                                <td>
+                                    <input id="address" type="text" class="form-control" name="address"
+                                        value="{{ $customer->address }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="submit" class="btn btn-small btn-primary w-100 btn-block">
+                                        {{ __('text.update') }}
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="bg-primary text-white text-center" colspan="2">{{ __('text.customer') }}</th>
+                            <th class="bg-primary text-white text-center">
+                                {{ __('text.search') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th>{{ __('text.name') }}</th>
-                            <td>{{ $customer->user->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('text.phone') }}</th>
-                            <td>{{ $customer->user->phone }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('text.idnumber') }}</th>
-                            <td>{{ $customer->user->id_number }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('text.email') }}</th>
-                            <td>{{ $customer->user->email }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('text.address') }}</th>
-                            <td>{{ $customer->address }}</td>
+                            <td>
+                                <form class="row" action="{{ route('customer.filter', $customer->user_id) }}"
+                                    method="get">
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="date" name="date" id="date" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn" type="submit">
+                                            <img src="{{ asset('icon/search.svg') }}" alt="" width="20px"
+                                                height="20px">
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-
                 <table class="table">
                     <thead>
                         <tr>
@@ -69,21 +119,34 @@
                         </tr>
                     </tbody>
                 </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="bg-danger text-white text-center" colspan="2"> {{ __('text.delete') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="form-check-input" name="allow" id="allow">
+                                <label for="allow" class="mb-2"> {{ __('text.allowdelete') }} </label>
+                            </td>
+                            <td>
+                                @if (Auth::user()->admin)
+                                    <form action="{{ route('customer.delete', $customer->user->id) }}" method="post">
+                                        @csrf
+                                        <button id="delete" type="submit" disabled
+                                            class="btn btn-danger w-100 btn-block">
+                                            {{ __('text.delete') }}</button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="col-md-8">
-
-                <form class="row" action="{{ route('filter', $customer->user_id) }}" method="get">
-                    <div class="col-md-8">
-                        <input class="form-control" type="date" name="date" id="date" required>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn" type="submit">
-                            <img src="{{ asset('icon/search.svg') }}" alt="" width="20px" height="20px">
-                        </button>
-                    </div>
-                </form>
-                <br>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -147,4 +210,18 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $('#allow').change(function(e) {
+                if (this.checked) {
+                    $('#delete').attr("disabled", false);
+                } else {
+                    $('#delete').attr("disabled", true);
+                }
+            })
+        });
+    </script>
 @endsection

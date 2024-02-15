@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Installment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstallmentController extends Controller
 {
@@ -59,8 +60,12 @@ class InstallmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        if (!Auth::user()->admin) {
+            return redirect()->back()->withErrors('Not Authroized');
+        }
+
+        Installment::find($id)->delete();
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Restriction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -59,8 +60,8 @@ class CustomerController extends Controller
             [
                 'name' => 'required|string|max:255',
                 'email' => 'nullable|unique:users|string|max:255',
-                'phone' => 'required|integer',
-                'id_number' => 'required|integer',
+                'phone' => 'required|string',
+                'id_number' => 'required|string',
                 'address' => 'required|string',
                 'currency' => 'required|string',
             ]
@@ -90,8 +91,9 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
+        $customer = Customer::find($id);
         $res = $customer->restrictions()->paginate(30);
         return view('customer.show', compact(['customer', 'res']));
     }
@@ -113,27 +115,16 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         return view('customer.show', compact(['customer', 'res']));
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Customer $customer)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
-        //
+        if (!Auth::user()->admin) {
+            return redirect()->back()->withErrors('Not Authroized');
+        }
+        User::find($id)->delete();
+        return redirect()->route('customer.index')->with('success', 'Process complete successfully');
     }
 }

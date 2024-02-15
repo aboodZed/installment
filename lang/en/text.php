@@ -43,4 +43,9 @@ return [
     'total' => 'Total',
     'rest' => 'Rest',
     'search' => 'Search',
+    'users' => 'users',
+    'user' => 'user',
+    'createuser' => 'Create User',
+    'admin' => 'Admin',
+    'update' => 'Update',
 ];

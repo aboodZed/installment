@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -32,23 +33,41 @@ Route::middleware(Language::class)->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('customer/installment/{id}', [CustomerController::class, 'insta'])->name('insta');
-    Route::get('customer/{id}/filter', [CustomerController::class, 'filter'])->name('filter');
-    Route::resource('customer', CustomerController::class);
+    // Route::resource('customer', CustomerController::class);
 
-    // Route::resource('restriction', RestrictionController::class);
+    Route::prefix('customer')->name('customer.')
+        ->controller(CustomerController::class)->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('{id}', 'show')->name('show');
+            Route::get('{id}/filter', 'filter')->name('filter');
+            Route::post('{id}/delete', 'destroy')->name('delete');
+        });
+
     Route::prefix('installment')->name('installment.')
         ->controller(InstallmentController::class)->group(function () {
             Route::get('{id}', 'show')->name('show');
         });
 
+    // Route::resource('restriction', RestrictionController::class);
     Route::prefix('restriction')->name('restriction.')
         ->controller(RestrictionController::class)->group(function () {
             Route::get('', 'index')->name('index');
-            Route::get('{id}', 'show')->name('show');
             Route::get('/create/{id}', 'create')->name('create');
             Route::post('store', 'store')->name('store');
+            Route::get('{id}', 'show')->name('show');
             Route::put('{id}/edit', 'update')->name('edit');
+            Route::post('{id}/delete', 'destroy')->name('delete');
+        });
+
+    Route::prefix('admin')->name('admin.')
+        ->controller(AdminController::class)->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('{id}', 'show')->name('show');
+            Route::post('{id}/edit', 'update')->name('edit');
             Route::post('{id}/delete', 'destroy')->name('delete');
         });
 });

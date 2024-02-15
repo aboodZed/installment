@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <h3 class="offset-md-2 text-center mb-3 mt-2">{{ __('text.restriction') }}
                     <a href="{{ route('customer.show', $res->installment->customer_id) }}">
-                         : {{ $res->installment->user->user->name }}
+                        : {{ $res->installment->user->user->name }}
                     </a>
                 </h3>
 
@@ -37,7 +37,7 @@
 
                         <div class="col-md-6">
                             <input type="text" class="form-control @error('desc') is-invalid @enderror"
-                                 value="{{ $res->installment->desc }}" disabled>
+                                value="{{ $res->installment->desc }}" disabled>
 
                         </div>
                     </div>
@@ -60,20 +60,22 @@
                         </div>
                     </div>
                 </form>
-                <div class="row mb-0">
-                    <div class="col-md-6 offset-md-4 mt-5">
-                        <form action="{{ route('restriction.delete', $res->price_id) }}" method="post">
-                            @csrf
-                            <input type="checkbox" class="form-check-input" name="allow" id="allow">
-                            <label for="allow" class="mb-2">
-                                {{ __('text.allowdelete') }}
-                            </label>
-                            <button id="delete" type="submit" disabled class="btn btn-danger w-100 btn-block">
-                                {{ __('text.delete') }}
-                            </button>
-                        </form>
+                @if (Auth::user()->admin)
+                    <div class="row mb-0">
+                        <div class="col-md-6 offset-md-4 mt-5">
+                            <form action="{{ route('restriction.delete', $res->price_id) }}" method="post">
+                                @csrf
+                                <input type="checkbox" class="form-check-input" name="allow" id="allow">
+                                <label for="allow" class="mb-2">
+                                    {{ __('text.allowdelete') }}
+                                </label>
+                                <button id="delete" type="submit" disabled class="btn btn-danger w-100 btn-block">
+                                    {{ __('text.delete') }}
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>

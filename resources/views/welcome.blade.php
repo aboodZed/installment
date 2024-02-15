@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __('text.appname') }}</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('icon/logo.png') }}" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -25,33 +26,42 @@
 </head>
 
 <body>
-    <div class="container text-center p-5">
-        @if (Route::has('login'))
-            <div class="row offset-md-3 col-6">
-                @auth
-                    <div class="col-12">
-                        <a href="{{ url('/home') }}">
-                            <h1>Home</h1>
-                        </a>
-                    </div>
-                @else
-                    <div class="col-6">
+    <div class="container text-center p-5 row">
+        <div class="col-6 mt-3 p-5">
+            <h1>{{ __('text.appname') }}</h1>
+            <img class="mt-5 mb-5" src="{{ asset('icon/logo.png') }}" alt="logo" width="100px" height="100px">
+            @auth
+                <div>
+                    <a href="{{ url('/home') }}">
+                        <button class="btn btn-primary">
+                            <b style="color: white; padding: 30px">{{ __('text.home') }}</b>
+                        </button>
+                    </a>
+                </div>
+            @else
+                @if (Route::has('login'))
+                    <div>
                         <a href="{{ route('login') }}">
-                            <h1>Log in</h1>
+                            <button class="btn btn-primary">
+                                <b style="color: white; padding: 30px">{{ __('text.login') }}</b>
+                            </button>
                         </a>
                     </div>
-
-                    @if (Route::has('register'))
-                        <div class="col-6">
-                            <a href="{{ route('register') }}">
-                                <h1>Register</h1>
-                            </a>
-                        </div>
-                    @endif
-                @endauth
-            </div>
-        @endif
-        <img class="mt-4" src="{{ asset('icon/back.jpg') }}" alt="" width="600px" height="450px">
+                @endif
+                @if (Route::has('register'))
+                    <div class="mt-3">
+                        <a href="{{ route('register') }}">
+                            <button class="btn btn-primary">
+                                <b style="color: white; padding: 30px">{{ __('text.register') }}</b>
+                            </button>
+                        </a>
+                    </div>
+                @endif
+            @endauth
+        </div>
+        <div class="col-6 mt-3">
+            <img src="{{ asset('icon/back.jpg') }}" alt="" width="650px" height="450px">
+        </div>
     </div>
 </body>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

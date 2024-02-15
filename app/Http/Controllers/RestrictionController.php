@@ -7,6 +7,7 @@ use App\Models\installment;
 use App\Models\Price;
 use App\Models\Restriction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RestrictionController extends Controller
@@ -145,6 +146,9 @@ class RestrictionController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->admin) {
+            return redirect()->back()->withErrors('Not Authroized');
+        }
         Restriction::find($id)->delete();
         return redirect()->route('restriction.index');
     }

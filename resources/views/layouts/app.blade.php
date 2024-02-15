@@ -8,11 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __('text.appname') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('icon/logo.png') }}" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -67,9 +68,14 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('home') }}">{{ __('text.home') }}</a>
-                                    <a class="dropdown-item" href="{{ route('customer.index') }}">{{ __('text.customers') }}</a>
-                                    <a class="dropdown-item" href="{{ route('restriction.index') }}">{{ __('text.restrictions') }}</a>
-
+                                    @if (Auth::user()->admin)
+                                        <a class="dropdown-item"
+                                            href="{{ route('admin.index') }}">{{ __('text.admin') }}</a>
+                                    @endif
+                                    <a class="dropdown-item"
+                                        href="{{ route('customer.index') }}">{{ __('text.customers') }}</a>
+                                    <a class="dropdown-item"
+                                        href="{{ route('restriction.index') }}">{{ __('text.restrictions') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

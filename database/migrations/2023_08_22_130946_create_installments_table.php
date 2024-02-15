@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('user_id')->on('customers');
+            $table->foreign('customer_id')->references('user_id')->on('customers')->onDelete('cascade');
         });
     }
 
