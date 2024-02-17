@@ -48,6 +48,7 @@ Route::middleware(Language::class)->group(function () {
     Route::prefix('installment')->name('installment.')
         ->controller(InstallmentController::class)->group(function () {
             Route::get('{id}', 'show')->name('show');
+            Route::post('{id}/delete', 'destroy')->name('delete');
         });
 
     // Route::resource('restriction', RestrictionController::class);

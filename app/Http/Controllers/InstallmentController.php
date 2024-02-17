@@ -67,5 +67,6 @@ class InstallmentController extends Controller
         }
 
         Installment::find($id)->delete();
+        return redirect()->route('restriction.index');
     }
 }

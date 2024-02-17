@@ -170,7 +170,7 @@
                                 $p += $item->paid ? $item->price->value : 0;
                             @endphp
                             <tr>
-                                <td>{{ $i }}</td>
+                                <td>{{ $i++ }}</td>
                                 <td>{{ $item->is_credit ? -1 * $item->price->value : $item->price->value }}
                                     {{ $item->price->currency->symbol }}</td>
                                 <td>{{ $item->pay_date->format('d/m/Y') }}</td>
@@ -186,9 +186,6 @@
                                     </a>
                                 </td>
                             </tr>
-                            @php
-                                ++$i;
-                            @endphp
                         @endforeach
                     </tbody>
                     <tfoot>
@@ -207,6 +204,14 @@
                 @endphp
 
                 @include('layouts.pagination')
+                <div class="row">
+                    <div class="col-2 offset-10">
+                        <a class="" href="{{ route('restriction.create', $customer->user_id) }}">
+                            <button type="button" class="btn btn-primary w-100">
+                                {{ __('text.appname') }}</button>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

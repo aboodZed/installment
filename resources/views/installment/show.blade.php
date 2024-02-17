@@ -24,7 +24,7 @@
                     @endphp
                     @foreach ($products as $item)
                         <tr>
-                            <td>{{ $i }}</td>
+                            <td>{{ $i++ }}</td>
                             <td>
                                 <a href="{{ route('customer.show', $item->installment->customer_id) }}">
                                     {{ $item->installment->user->user->name }}
@@ -42,13 +42,41 @@
                                 </a>
                             </td>
                         </tr>
-                        @php
-                            ++$i;
-                        @endphp
                     @endforeach
                 </tbody>
             </table>
+            @include('layouts.pagination')
+
+            @if (Auth::user()->admin)
+                <div class="row mb-0">
+                    <div class="col-md-2 mt-5">
+                        <form action="{{ route('installment.delete', $installment->id) }}" method="post">
+                            @csrf
+                            <input type="checkbox" class="form-check-input" name="allow" id="allow">
+                            <label for="allow" class="mb-2">
+                                {{ __('text.allowdelete') }}
+                            </label>
+                            <button id="delete" type="submit" disabled class="btn btn-danger w-100 btn-block">
+                                {{ __('text.delete') }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
-    @include('layouts.pagination')
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $('#allow').change(function(e) {
+                if (this.checked) {
+                    $('#delete').attr("disabled", false);
+                } else {
+                    $('#delete').attr("disabled", true);
+                }
+            })
+        });
+    </script>
 @endsection
