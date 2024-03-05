@@ -48,4 +48,7 @@ return [
     'createuser' => 'إنشاء مستخدم',
     'admin' => 'المسؤول', 
     'update' => 'تحديث',
+    'language' => 'اللغة',
+    'arabic' => 'العربية',
+    'english' => 'English',
 ];

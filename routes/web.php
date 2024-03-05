@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\RestrictionController;
 use App\Http\Middleware\Language;
+use App\Jobs\testJob;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::middleware(Language::class)->group(function () {
     });
 
     Auth::routes();
+
+    Route::get('/lang/{lang}', [HomeController::class, 'lang'])->name('lang');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 

@@ -48,4 +48,7 @@ return [
     'createuser' => 'Create User',
     'admin' => 'Admin',
     'update' => 'Update',
+    'language' => 'language',
+    'arabic' => 'العربية',
+    'english' => 'English',
 ];
